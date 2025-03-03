@@ -2,28 +2,44 @@ body {
   background-color: black;
   height: 100vh;
   margin: 0;
+  position: relative;
+  overflow: hidden;
 }
 
 h1 {
-  text-align: center;
   color: white;
 }
 
 button {
+  top: 50%;
+  cursor: pointer;
+  border: 2px white solid;
+  color: white;
+  font-size: 50px;
+}
+
+#addColorButton {
+  transform: translate(-50%, -50%);
+  left: 50%;
+  position: absolute;
   background-color: transparent;
-  border: none;
+}
+
+#addMoreColorButton {
+  border-radius: 10px;
+  /*position: fixed;*/
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 #palette {
   display: flex;
-  flex-wrap: wrap; /* Permet aux sections de passer à la ligne suivante si nécessaire */
-  width: 80%; /* Largeur du conteneur pour le rendre visible et contenu centré */
+  flex-wrap: wrap;
 }
 
 #palette > section {
-  flex: 1 1 200px; /* Chaque section a une largeur minimale de 200px, mais s'ajustera à l'espace disponible */
-  height: 200px; /* Assure que chaque section a une hauteur visible */
-  background-color: white; /* Ajoute un fond pour rendre les sections visibles */
-  margin-right: 10px; /* Un petit espace entre les sections */
-  margin-bottom: 10px; /* Un petit espace entre les lignes */
+  flex: 1 1 200px;
+  height: 200px;
+  background-color: white;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
