@@ -1,4 +1,5 @@
 const button = document.getElementById("addColorButton");
+let colorPalette = [];
 
 button.addEventListener("click", () => {
   if (button.id === "addColorButton") {
@@ -9,20 +10,19 @@ button.addEventListener("click", () => {
 
     // Génération aléatoire de la première couleur
     const colorSection = document.createElement("section");
-    const randomColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-    colorSection.style.backgroundColor = randomColor;
+    colorPalette[0] = `hsl(${Math.random() * 360}, 100%, 50%)`;
+    colorSection.style.backgroundColor = colorPalette[0];
     colorSection.style.height = "100vh";
     palette.appendChild(colorSection);
 
     // Sélecteur de couleur
     const colorInput = document.createElement("input");
     colorInput.type = "color";
-    colorInput.value = randomColor;
+    colorInput.value = colorPalette[0];
     colorInput.addEventListener("input", (e) => {
       colorSection.style.backgroundColor = e.target.value;
     });
     colorSection.appendChild(colorInput);
-    palette.appendChild(colorSection);
 
     // Création du nouveau bouton
     button.innerText = "+";
@@ -30,15 +30,24 @@ button.addEventListener("click", () => {
   } else if (button.id === "addMoreColorButton") {
     // Génération aléatoire (inclure un algorithme en React + tard) des autres couleurs
     const colorSection = document.createElement("section");
-    const randomColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-    colorSection.style.backgroundColor = randomColor;
+
+    function getHarmoniousColors(hex) {
+      return chroma
+        .scale([hex, chroma(hex).set("hsl.h", "+60")])
+        .mode("lab")
+        .colors(1);
+    }
+
+    colorSection.style.backgroundColor = getHarmoniousColors(
+      colorPalette[colorPalette.length - 1]
+    )[0];
     colorSection.style.height = "100vh";
     palette.appendChild(colorSection);
 
     // Sélecteur de couleur
     const colorInput = document.createElement("input");
     colorInput.type = "color";
-    colorInput.value = randomColor;
+    colorInput.value = colorPalette[colorPalette.length - 1];
     colorInput.addEventListener("input", (e) => {
       colorSection.style.backgroundColor = e.target.value;
     });
