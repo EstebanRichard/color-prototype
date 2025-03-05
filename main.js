@@ -8,51 +8,42 @@ button.addEventListener("click", () => {
     palette.id = "palette";
     document.body.appendChild(palette);
 
-    // Génération aléatoire de la première couleur
-    const colorSection = document.createElement("section");
-    colorPalette[0] = `hsl(${Math.random() * 360}, 100%, 50%)`;
-    colorSection.style.backgroundColor = colorPalette[0];
-    colorSection.style.height = "100vh";
-    palette.appendChild(colorSection);
+    // Génération et affichage de la première couleur
+    addColorSection(getRandomColor(), palette);
 
-    // Sélecteur de couleur
-    const colorInput = document.createElement("input");
-    colorInput.type = "color";
-    colorInput.value = colorPalette[0];
-    colorInput.addEventListener("input", (e) => {
-      colorSection.style.backgroundColor = e.target.value;
-    });
-    colorSection.appendChild(colorInput);
-
-    // Création du nouveau bouton
+    // Transformation du bouton
     button.innerText = "+";
     button.id = "addMoreColorButton";
   } else if (button.id === "addMoreColorButton") {
-    // Génération aléatoire (inclure un algorithme en React + tard) des autres couleurs
-    const colorSection = document.createElement("section");
-
-    function getHarmoniousColors(hex) {
-      return chroma
-        .scale([hex, chroma(hex).set("hsl.h", "+60")])
-        .mode("lab")
-        .colors(1);
-    }
-
-    colorSection.style.backgroundColor = getHarmoniousColors(
-      colorPalette[colorPalette.length - 1]
-    )[0];
-    colorSection.style.height = "100vh";
-    palette.appendChild(colorSection);
-
-    // Sélecteur de couleur
-    const colorInput = document.createElement("input");
-    colorInput.type = "color";
-    colorInput.value = colorPalette[colorPalette.length - 1];
-    colorInput.addEventListener("input", (e) => {
-      colorSection.style.backgroundColor = e.target.value;
-    });
-    colorSection.appendChild(colorInput);
-    palette.appendChild(colorSection);
+    // Génération d'une couleur harmonieuse
+    const newColor = getHarmoniousColor(colorPalette[colorPalette.length - 1]);
+    addColorSection(newColor, document.getElementById("palette"));
   }
-  palette.appendChild(button);
 });
+
+// Fonction pour ajouter une nouvelle section de couleur
+function addColorSection(color, container) {
+  const colorSection = document.createElement("section");
+  colorSection.style.backgroundColor = color;
+  colorSection.style.height = "100vh";
+  colorPalette.push(color);
+
+  // Sélecteur de couleur
+  const colorInput = document.createElement("input");
+  colorInput.type = "color";
+  colorInput.value = colorObj.hex;
+  colorInput.addEventListener("input", (e) => {
+    colorSection.style.backgroundColor = e.target.value;
+  });
+
+  // Affichage du code
+  const p = document.createElement("p");
+  p.innerHTML = color;
+  p.appendChild;
+
+  colorSection.appendChild(colorInput);
+  colorSection.appendChild(p);
+  container.appendChild(colorSection);
+
+  palette.appendChild(button);
+}
