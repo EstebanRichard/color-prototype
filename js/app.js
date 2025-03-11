@@ -22,7 +22,6 @@ function addColorSection(color, container) {
   const colorSection = document.createElement("section");
   colorSection.style.backgroundColor = color;
   colorSection.style.height = "85vh";
-  colorPalette.push(color);
 
   const p = document.createElement("p");
   p.innerHTML = color.toUpperCase();
@@ -31,9 +30,20 @@ function addColorSection(color, container) {
   colorInput.type = "color";
   colorInput.value = color;
 
+  colorPalette.push(color);
+
   colorInput.addEventListener("input", (e) => {
-    colorSection.style.backgroundColor = e.target.value;
-    p.innerHTML = e.target.value.toUpperCase();
+    const newColor = e.target.value;
+    colorSection.style.backgroundColor = newColor;
+    p.innerHTML = newColor.toUpperCase();
+
+    const index = colorPalette.indexOf(color);
+    if (index !== -1) {
+      colorPalette[index] = newColor;
+      color = newColor;
+    }
+
+    console.log(colorPalette)
   });
 
   colorSection.appendChild(p);
