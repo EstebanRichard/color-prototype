@@ -4,6 +4,7 @@ function getRandomColor() {
     .padStart(6, "0")}`;
 }
 
+// MODIFIER L'ALGORITHME AFIN D'UTILISER Chroma.js
 function getHarmoniousColor(baseColor, variation = 30) {
   let r = parseInt(baseColor.slice(1, 3), 16);
   let g = parseInt(baseColor.slice(3, 5), 16);
@@ -25,4 +26,4 @@ function getHarmoniousColor(baseColor, variation = 30) {
   return `#${Math.round(r).toString(16).padStart(2, "0")}${Math.round(g)
     .toString(16)
     .padStart(2, "0")}${Math.round(b).toString(16).padStart(2, "0")}`;
-}
+  }
